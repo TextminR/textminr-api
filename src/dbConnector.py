@@ -44,8 +44,8 @@ def scrollWithQuery(query) -> dict[str, Any]:
 
     return {hit['_id']: hit for hit in out}
 
-def getAuthor(id: str):
-    return es.get(index=INDEX, id=id, source_includes=["author"])['_source']['author']
+def getDocument(id: str):
+    return es.get(index=INDEX, id=id, source_excludes=['embeddings', 'text'])
     
 
 
