@@ -9,8 +9,7 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-
-dictionary = corpora.Dictionary.load(os.getenv("DICT_FILENAME", ""))
+from dictionary import dictionary
 
 c = FolderCorpus(dictionary)
 

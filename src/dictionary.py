@@ -34,9 +34,9 @@ def createDictionary():
     dictionary.save(filename)
     dictionary.save_as_text(filename + ".dbg")
 
-
-def getDictionary():
-    return dictionary
+filename = os.getenv("DICT_FILENAME", "")
+print(f"loading dictionary from {filename}")
+dictionary = corpora.Dictionary.load(filename)
 
 if __name__ == "__main__":
     createDictionary()
