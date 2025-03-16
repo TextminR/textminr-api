@@ -28,21 +28,22 @@ else:
 
 
 def scrollWithQuery(query) -> dict[str, Any]:
-    out = []
+    out = {}
 
     data = es.search(index=INDEX, body=query, size=100, scroll="2m")
     scroll_id = data["_scroll_id"]
     hits = data["hits"]["hits"]
+
     while hits:
         for h in hits:
-            out.append(h)
+            out[h["_id"]] = h
 
         # continue scrolling
         data = es.scroll(scroll_id=scroll_id, scroll="2m")
         scroll_id = data["_scroll_id"]
         hits = data["hits"]["hits"]
 
-    return {hit["_id"]: hit for hit in out}
+    return out
 
 
 def getDocument(id: str):
